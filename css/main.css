@@ -56,9 +56,13 @@ header form {
   font-weight: 300;
   min-width: 30ch;
 }
-#search svg {
-  width: 22px;
+#btnSearch .iconic {
   height: 22px;
+  width: 22px;
+}
+#btnSearch .iconic * {
+  stroke: hsl(20, 10%, 60%);
+  fill: hsl(20, 10%, 30%);
 }
 #btnSearch.pulse {
   animation-name: pulse;
@@ -163,7 +167,7 @@ header form {
   #search {
     font-size: 1.5rem;
   }
-  #btnSearch svg {
+  #btnSearch .iconic {
     height: 42px;
     width: 42px;
   }
