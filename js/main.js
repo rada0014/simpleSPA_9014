@@ -1,6 +1,11 @@
 //app is for general control over the application
 //and connections between the other components
-const APP = {};
+const APP = {
+  init: () => {
+    //this function runs when the page loads
+  },
+};
+APP.init();
 
 //search is for anything to do with the fetch api
 const SEARCH = {};
@@ -12,7 +17,11 @@ const ACTORS = {};
 const MEDIA = {};
 
 //storage is for working with localstorage
-const STORAGE = {};
+const STORAGE = {
+  //this will be used in Assign 4
+};
 
 //nav is for anything connected to the history api and location
-const NAV = {};
+const NAV = {
+  //this will be used in Assign 4
+};
