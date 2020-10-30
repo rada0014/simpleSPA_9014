@@ -5,7 +5,6 @@ const APP = {
     //this function runs when the page loads
   },
 };
-APP.init();
 
 //search is for anything to do with the fetch api
 const SEARCH = {};
@@ -25,3 +24,7 @@ const STORAGE = {
 const NAV = {
   //this will be used in Assign 4
 };
+
+//Start everything running
+
+APP.init();
