@@ -1,10 +1,45 @@
 //app is for general control over the application
 //and connections between the other components
 const APP = {
+  apiStaple: 'https://api.themoviedb.org/3/',
+  apiPerson: 'search/person?api_key=',
+  apiKey: '47bef60ec30c0c24bef8331cca476134&query=',
+  searchBox: document.querySelector('#search'),
   init: () => {
-    //this function runs when the page loads
+    let url = ''.concat(APP.apiStaple, APP.apiPerson, APP.apiKey, APP.searchBox.nodeValue);
+    console.log(url);
+    fetch(url)
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw new Error("NETWORK ERROR")
+      }
+    })
+    .then(data => {
+      console.log(data);
+    })
+    .then(APP.searchBox.addEventListener('search', APP.searchFunc))
   },
-};
+  searchFunc: () => {
+    console.log(`${APP.searchBox.nodeValue}`);
+  },
+  displayPersons: (results) => {
+    let contentHolder = document.querySelector('#contentHolder');
+    const Actors = results.map((results) => {
+      return `
+      <li class="result">
+      <h2>${results.name}</h2>
+      <p>${results.known_for_department}</p>
+      <p>${results.popularity}</p>`
+    })
+    contentHolder.append(Actors);
+
+
+  }
+}
+
+document.addEventListener('DOMContentLoaded', APP.init);
 
 //search is for anything to do with the fetch api
 const SEARCH = {};

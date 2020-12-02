@@ -5,21 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple Movie SPA</title>
     <link rel="stylesheet" href="css/main.css" />
-    <script src="./js/iconic.min.js"></script>
-    <script src="js/main.js" defer></script>
   </head>
   <body>
     <header>
       <h1>Actors &amp; Shows</h1>
       <form>
-        <input type="search" id="search" value="" placeholder="Actor Name" />
+        <input type="text" id="search" value="" placeholder="Actor Name" />
         <button id="btnSearch" class="pulse">
           <img data-src="./img/magnifying-glass.svg" class="iconic" />
         </button>
       </form>
     </header>
     <main>
-      <section id="instructions">
+      <!-- <section id="instructions">
         <h2>How to Start</h2>
         <div class="content">
           <p>
@@ -35,7 +33,7 @@
             shows in which they have appeared.
           </p>
         </div>
-      </section>
+      </section> -->
       <section id="actors" class="active">
         <h2>Actors</h2>
         <div class="content">
@@ -50,5 +48,7 @@
         <div class="content"></div>
       </section>
     </main>
+    <script src="./js/iconic.min.js"></script>
+    <script src="js/main.js" defer></script>
   </body>
 </html>
