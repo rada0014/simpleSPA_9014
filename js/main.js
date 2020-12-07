@@ -1,56 +1,105 @@
-//app is for general control over the application
-//and connections between the other components
-const APP = {
-  apiStaple: 'https://api.themoviedb.org/3/',
-  apiPerson: 'search/person?api_key=',
-  apiKey: '47bef60ec30c0c24bef8331cca476134&query=',
-  searchBox: document.querySelector('#search'),
-  init: () => {
-    let url = ''.concat(APP.apiStaple, APP.apiPerson, APP.apiKey, APP.searchBox.nodeValue);
-    console.log(url);
-    fetch(url)
+const SEARCH = {
+  apiKey: `47bef60ec30c0c24bef8331cca476134`,
+  init:() => {
+    document.querySelector('#btnSearch').addEventListener('click', SEARCH.fetchData);
+    // document.querySelector('#btnSearch').addEventListener('click', ACTORS.refresh, true);
+  },
+  allData:[],
+  knownForArray:[,],
+  knownForImageLinks:[,],
+  faceImageLinks:[],
+  cards: [],
+  fetchData:(ev) => {
+    ev.preventDefault();
+    let input = document.querySelector('input');
+    let value = input.value;
+    let URL = `https://api.themoviedb.org/3/search/person?api_key=${SEARCH.apiKey}&page=1&language=en-US&query=${value}`;
+    ev.target.value;
+    fetch(URL)
     .then(response => {
-      if (response.ok) {
-        return response.json()
-      } else {
-        throw new Error("NETWORK ERROR")
-      }
+    return response.json()
     })
     .then(data => {
-      console.log(data);
-    })
-    .then(APP.searchBox.addEventListener('search', APP.searchFunc))
-  },
-  searchFunc: () => {
-    console.log(`${APP.searchBox.nodeValue}`);
-  },
-  displayPersons: (results) => {
-    let contentHolder = document.querySelector('#contentHolder');
-    const Actors = results.map((results) => {
-      return `
-      <li class="result">
-      <h2>${results.name}</h2>
-      <p>${results.known_for_department}</p>
-      <p>${results.popularity}</p>`
-    })
-    contentHolder.append(Actors);
+      const str = JSON.parse(JSON.stringify(data,null,"\t"))
+    //  console.log(str);
+      for (i=0; i<str.results.length; i++) {
+        SEARCH.allData[i] = str.results[i];
+        SEARCH.faceImageLinks[i]=`https://image.tmdb.org/t/p/w600_and_h900_bestv2${SEARCH.allData[i].profile_path}`;
+        for (j=0; j < SEARCH.allData[i].known_for.length; j++)
+        {
+          SEARCH.knownForArray[i,j] = SEARCH.allData[i].known_for[j]
+          SEARCH.knownForImageLinks[i,j] = `https://image.tmdb.org/t/p/original${SEARCH.knownForArray[j].backdrop_path}`
+        }
 
+        document.querySelector('.contentActor').innerHTML +=         
+          `
+          <span onclick="MEDIA.knFunc(${i})" class="cards" id=${SEARCH.allData[i].id}>
+          <div>
+          <p class="cardFont">
+          ${SEARCH.allData[i].name}
+          </p>
+          <p class="cardFont">
+          ${SEARCH.allData[i].popularity}
+          </p>
+          <img src="${SEARCH.faceImageLinks[i]}" alt="image not found :(">
+          </div>
+          </span>
+          `
+      }
+      document.querySelector('#search').addEventListener('click', ACTORS.refresh);
+    })
 
+    .catch(err => {
+      console.error(err)
+    })
   }
-}
+};
 
-document.addEventListener('DOMContentLoaded', APP.init);
+// actors is for changes connected to content in the actors section
+const ACTORS = {
+  refresh:() => {
+    location.reload();
+    return false;
+  }
+};
 
-//search is for anything to do with the fetch api
-const SEARCH = {};
+const MEDIA = {
+  knFunc:(e1) => {
+    let knf;
+    knf += "<p><b>Name: </b>" + SEARCH.allData[e1].name + " (<b>Id: " + SEARCH.allData[e1].id + ")</b></p>";
+    for (k=0; k<SEARCH.allData[e1].known_for.length;k++){
+      let mn = k+1;
+      let link_k = "https://image.tmdb.org/t/p/original"+ SEARCH.allData[e1].known_for[k].poster_path; 
+      knf += "<p><b>Movie #:" + mn +"</b></p>";
+      knf += "<img src="+link_k+"></img>";
+      
+      knf += "<p><b>Original Title: </b>"+SEARCH.allData[e1].known_for[k].original_title+"</p>";
+      knf += "<p><b>Overview: </b>"+SEARCH.allData[e1].known_for[k].overview+"</p>";       
+    }
+    let span2 = document.createElement('span');
+    span2.className = "knownForPage"
+    let mainDiv = document.querySelector('.contentMedia');
+    mainDiv.appendChild(span2);
+    span2.innerHTML = `<p>${knf}</p>`
+    //closebtn
+    let closeBtn = document.createElement('button');
+    span2.appendChild(closeBtn);
+    closeBtn.className = 'buttonClose';
+    closeBtn.style.width = '40%';
+    closeBtn.style.height = '40%';
+    //not working (z-index)
+    closeBtn.style.color = 'red';
+    closeBtn.style.content = 'x';
+    closeBtn.style.transform = 'translate(420px, -820px)';
 
-//actors is for changes connected to content in the actors section
-const ACTORS = {};
+    closeBtn.onclick = function () {
+      span2.className = 'off';
+      span2.innerHTML = ``;
+    }
+  }
+};
 
-//media is for changes connected to content in the media section
-const MEDIA = {};
-
-//storage is for working with localstorage
+//storage is for working with localStorage
 const STORAGE = {
   //this will be used in Assign 4
 };
@@ -61,5 +110,4 @@ const NAV = {
 };
 
 //Start everything running
-
-APP.init();
+document.addEventListener('DOMContentLoaded', SEARCH.init);

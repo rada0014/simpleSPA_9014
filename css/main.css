@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;500&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 *,
 *::before,
 *::after {
@@ -24,15 +24,15 @@ body {
 *******************/
 
 header {
-  background-color: hsl(75, 40%, 73%);
-  color: hsl(20, 40%, 100%);
+  background-color: hsl(186, 31%, 70%);
+  color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   min-height: 15vh;
   font-size: 1rem;
-  border-bottom: 0.5rem solid hsl(20, 10%, 30%);
+  border-bottom: 0.5rem ridge hsl(234, 100%, 52%);
 }
 header h1,
 header form {
@@ -80,37 +80,170 @@ header form {
   background-color: white;
 }
 
+
+
 /*******************
   content area
 *******************/
 
-#instructions {
-  display: none;
-}
-#actors {
-  display: none;
-}
-#media {
-  display: none;
-}
-#instructions.active,
-#actors.active,
-#media.active {
-  display: block;
-}
-#instructions h2,
-#actors h2,
-#media h2 {
-  font-weight: 500;
-  font-size: 3rem;
-  color: hsl(20, 10%, 30%);
-  padding: 1rem;
+
+
+.cards{
+  background-color: rgb(121, 207, 247) ;
+  height: 340px;
+  width: 229px;
+  margin: 50px;
+  color: rgb(0, 0, 0);
+  font-family: 'Do Hyeon', sans-serif;
+  border: 2px ridge rgb(255, 109, 109);
+  display: flex;
+  justify-content: space-between;
+  float: left;
 }
 
-.content p {
-  padding: 0 1rem;
-  margin: 1rem 0;
-  color: hsl(20, 10%, 50%);
+img{
+  width: 200px;
+  height: 270px;
+  transform: translate(13px, 0px);
+}
+
+.cardFont {
+  text-align: center;
+  font-size: 21px;
+}
+
+
+.cards:hover {
+  border-bottom: 5px ridge blue;
+  border-left: 5px ridge blue;
+}
+
+.knownForPage {
+  max-height: 100%;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(208, 188, 168);
+  height: 800px;
+  width: 700px;
+  position: fixed;
+  transform: translate(780px, 0px);
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  opacity: 1;
+}
+
+
+.knownForPage:hover {
+  border-bottom: 10px blue ridge;
+  border-left: 10px blue ridge;
+}
+
+
+.knownForPage.off {
+  display: none;
+  color: black;
+  background-color: white;
+  font-size: 10px;
+  opacity: 0;
+
+}
+
+.knownForPage p:nth-child(1) {
+  display: none;
+}
+
+.knownForPage img {
+  width: 130px;
+  height: 130px;
+}
+
+
+
+
+.knownForPage p {
+  font-size: 18px;
+}
+
+
+#actors h2 {
+  font-weight: 500;
+  font-size: 5rem;
+  color: hsl(242, 84%, 57%);
+  padding: 1rem;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+/************************
+  Media Queries
+************************/
+@media all and (max-width: 950px) {
+  .cardFont {
+    font-size: 14px;
+  }
+  .cards {
+    height: 240px;
+    width: 190px;
+  }
+  img {
+    transform: rotate(3deg);
+    height: 140px;
+    width: 110px;
+    margin: 40px;
+    font-family: 'Do Hyeon', sans-serif;
+  }
+  .knownForPage {
+    transform: translate(300px, 0px);
+  }
+  .knownForPage p {
+    font-size: 12px;
+    height: 100px;
+    width: 400px;
+  }
+
+}
+
+@media all and (max-width: 625px) {
+  .cardFont {
+    font-size: 20px;
+    text-align: left;
+  }
+  .cards {
+    height: 150px;
+    width: 600px;
+    background-color: beige;
+  }
+  img {
+    transform: rotate(0deg) translate(140px, -90px);
+    height: 120px;
+    width: 200px;
+    margin: 40px;
+    font-family: 'Do Hyeon', sans-serif;
+  }
+  span {
+    width: 100%;
+    float: left; 
+  }
+  .knownForPage {
+    transform: translate(100px, 0px);
+  }
+  .knownForPage p {
+    font-size: 10px;
+    height: 100px;
+    width: 300px;
+  }
+  .knownForPage img {
+    transform: translate(0px, 10px);
+  }
 }
 
 /***********************
@@ -128,47 +261,5 @@ header form {
   100% {
     transform: scale(1);
     opacity: 1;
-  }
-}
-
-/************************
-  Media Queries
-************************/
-@media all and (min-width: 800px) {
-  header {
-    font-size: 1.2rem;
-    flex-direction: row;
-  }
-  #search {
-    max-width: 30vw;
-  }
-  #actors.active,
-  #media.active {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-
-  #instructions h2,
-  #actors h2,
-  #media h2 {
-    /* for the wider screens */
-    font-size: 12rem;
-    color: hsla(20, 10%, 30%, 0.32);
-    position: relative;
-    writing-mode: vertical-lr;
-  }
-}
-@media all and (min-width: 1000px) {
-  header {
-    font-size: 2rem;
-  }
-  #search {
-    font-size: 1.5rem;
-  }
-  #btnSearch .iconic {
-    height: 42px;
-    width: 42px;
   }
 }
