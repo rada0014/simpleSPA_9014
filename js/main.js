@@ -24,9 +24,20 @@ const SEARCH = {
     let value = input.value;
     var URL = `https://api.themoviedb.org/3/search/person?api_key=${SEARCH.apiKey}&page=1&language=en-US&query=${value}`;
     ev.target.value;
+    console.log('in fetchData')
+    // let loader = document.createElement('span');
+    // let head = document.querySelector('head');
+    // head.append(loader);
+    // loader.innerHTML = `<p id="loaderFetch">Loading<p>`;
+    //Supposed to bring up a loading text while fetching.
+    
     fetch(URL)
     .then(response => {
-      return response.json()
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Something is wrong")
+      }
     })
     .then(data => {
       const str = JSON.parse(JSON.stringify(data,null,"\t"));
@@ -62,6 +73,9 @@ const SEARCH = {
     .catch(err => {
       console.error(err)
     })
+    if (condition) {
+      
+    }
     NAV.historyFunc(URL);
   }
 };
