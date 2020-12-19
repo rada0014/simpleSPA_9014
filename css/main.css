@@ -24,7 +24,7 @@ body {
 *******************/
 
 header {
-  background-color: hsl(186, 31%, 70%);
+  background-color: hsl(0, 30%, 67%);
   color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
@@ -32,7 +32,6 @@ header {
   align-items: center;
   min-height: 15vh;
   font-size: 1rem;
-  border-bottom: 0.5rem ridge hsl(234, 100%, 52%);
 }
 header h1,
 header form {
@@ -89,7 +88,7 @@ header form {
 
 
 .cards{
-  background-color: rgb(121, 207, 247) ;
+  background-color: rgb(238, 142, 77) ;
   height: 340px;
   width: 229px;
   margin: 50px;
@@ -114,8 +113,9 @@ img{
 
 
 .cards:hover {
-  border-bottom: 5px ridge blue;
-  border-left: 5px ridge blue;
+  border-bottom: 2px ridge white;
+  border-left: 8px ridge black;
+  animation: cardChange 1s  .01s forwards;
 }
 
 .knownForPage {
@@ -133,12 +133,20 @@ img{
   left: 0px;
   right: 0px;
   opacity: 1;
+  pointer-events: all;
+  z-index: 500;
 }
 
+.closeBtn {
+  float: left;
+  font-size: 40px;
+  padding-top: 20px;
+  background-color: navy;
+  color: white;
+}
 
 .knownForPage:hover {
-  border-bottom: 10px blue ridge;
-  border-left: 10px blue ridge;
+  border-left: 10px black ridge;
 }
 
 
@@ -148,7 +156,8 @@ img{
   background-color: white;
   font-size: 10px;
   opacity: 0;
-
+  pointer-events: auto;
+  z-index: 501;
 }
 
 .knownForPage p:nth-child(1) {
@@ -186,6 +195,12 @@ img{
 /************************
   Media Queries
 ************************/
+@media all and (max-width: 1350px) {
+  .knownForPage {
+    transform: translate(500px, 0px);
+  }
+}
+
 @media all and (max-width: 950px) {
   .cardFont {
     font-size: 14px;
@@ -262,4 +277,10 @@ img{
     transform: scale(1);
     opacity: 1;
   }
+}
+
+@keyframes cardChange {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.02);}
+  100% {transform: scale(.90);}
 }
